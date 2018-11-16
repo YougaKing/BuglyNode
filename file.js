@@ -1,10 +1,16 @@
 const fs = require('fs');
 const issueListDir = __dirname + '/temp/issueList';
 
-function writeIssueList(page, json) {
+function writeIssueList(page, version, json) {
 
     const data = Buffer.from(json);
-    const file = issueListDir + '/' + page + '.json';
+    const dir = version ? (issueListDir + '/' + version + '/') : issueListDir;
+
+    fs.mkdir(dir, function (error) {
+
+    });
+
+    const file = dir + '/' + page + '.json';
 
     fs.exists(file, function (exists) {
         if (exists) {
