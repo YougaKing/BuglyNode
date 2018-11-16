@@ -2,6 +2,8 @@ var express = require('express');
 var cheerio = require('cheerio');
 var request = require('superagent');
 var router = express.Router();
+var file = require("../file.js")
+var token = '1980006692';
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -26,13 +28,13 @@ function issueList(page, res, next) {
         '&rows=50' +
         '&sortField=crashCount' +
         '&appId=d98a6960d7' +
-        '&fsn=003c87eb-8c7e-48b7-9901-6d1779c6dfcc';
+        '&fsn=3c13fcc5-99ae-4050-99f2-b352b93eec34';
 
     var url = host + path + params;
 
 
     request.get(url)
-        .set('X-token', '814585267')
+        .set('X-token', token)
         .set('Accept', 'application/json;charset=utf-8')
         .set('x-csrf-token', 'Ab5m4ZeWsaOxNLuSVfT3OXdB')
         .set('User_Agent', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36')
@@ -47,35 +49,21 @@ function issueList(page, res, next) {
                 return next(err);
             }
 
+            file.writeIssueList(page, response.text);
 
-            var object = JSON.parse(response.body);
+            var obj = JSON.parse(response.text);
 
-            if (object.code = 200) {
-
+            if (obj.code = 200) {
+                if (obj.ret.issueList.legth = 0) {
+                    res.send(page);
+                } else {
+                    issueList(page + 1, next)
+                }
             } else {
-                res.send(object);
+                res.send(obj);
             }
-            // JSON.stringify(response.body);
-            //
-            // JSON.stringify(res.body);
-            //
-            // var $ = cheerio.load(response.text);
-            //
-            // var code = $.accessKey('code');
-            //
-            // var items = [];
-            //
-            //
-            // $('#ret.issueList').each(function (idx, element) {
-            //     var $element = $(element);
-            //     items.push({
-            //         crashNum: $element.attr('crashNum'),
-            //         exceptionName: $element.attr('exceptionName')
-            //     });
-            // });
-            // res.send(code);
-            // res.send(JSON.stringify(response.body));
         });
 }
+
 
 module.exports = router;
