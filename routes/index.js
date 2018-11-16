@@ -1,9 +1,9 @@
-var express = require('express');
-var cheerio = require('cheerio');
-var request = require('superagent');
-var router = express.Router();
-var file = require("../file.js")
-var token = '1980006692';
+const express = require('express');
+const cheerio = require('cheerio');
+const request = require('superagent');
+const router = express.Router();
+const file = require("../file.js");
+const token = '1980006692';
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -14,12 +14,12 @@ router.get('/', function (req, res, next) {
 
 function issueList(page, res, next) {
 
-    var start = page * 50;
-    var host = 'https://bugly.qq.com';
-    var path = '/v2/issueList?';
+    const start = page * 50;
+    const host = 'https://bugly.qq.com';
+    const path = '/v2/issueList?';
 
 
-    var params = 'start=' + start
+    const params = 'start=' + start
         + '&searchType=errorType' +
         '&exceptionTypeList=Crash,Native' +
         '&pid=1' +
@@ -30,7 +30,7 @@ function issueList(page, res, next) {
         '&appId=d98a6960d7' +
         '&fsn=3c13fcc5-99ae-4050-99f2-b352b93eec34';
 
-    var url = host + path + params;
+    const url = host + path + params;
 
 
     request.get(url)
@@ -51,10 +51,10 @@ function issueList(page, res, next) {
 
             file.writeIssueList(page, response.text);
 
-            var obj = JSON.parse(response.text);
+            const obj = JSON.parse(response.text);
 
             if (obj.code = 200) {
-                if (obj.ret.issueList.legth = 0) {
+                if (obj.ret.issueList.length = 0) {
                     res.send(page);
                 } else {
                     issueList(page + 1, next)
