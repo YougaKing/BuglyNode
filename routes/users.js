@@ -4,8 +4,7 @@ const file = require("../file.js");
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    file.readFile(0);
-    res.send('respond with a resource');
+    res.render("users");
 });
 
 module.exports = router;
