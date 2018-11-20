@@ -1,13 +1,16 @@
 let chartData;
 
+const template = require('Handlebars').template;
+
 $(function () {
+    console.error('function');
     $.ajax({
 
         url: 'http://localhost:3300/chart',
         type: 'GET',
         success: function (data) {
             chartData = data;
-            const template = Handlebars.compile($("#tabular-template").html());
+            const template = template.compile($("#tabular-template").html());
             $("#table-location").html(template(data));
 
             const chartProperties = {
