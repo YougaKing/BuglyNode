@@ -6,12 +6,18 @@ const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const chartRouter = require('./routes/chart');
+
 
 const app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+//NPM Module to integrate Handlerbars UI template engine with Express
+const handlebars  = require('express-handlebars');
+
+//Declaring Express to use Handlerbars template engine with main.handlebars as
+//the default layout
+app.engine('handlebars', handlebars({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -21,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/chart', chartRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
