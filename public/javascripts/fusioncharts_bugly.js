@@ -1,9 +1,11 @@
+import $ from "fusioncharts/features/ajax";
+
 let chartData;
 
 const template = require('Handlebars').template;
 
 $(function () {
-    console.error('function');
+    console.error('function chart()');
     $.ajax({
 
         url: 'http://localhost:3300/chart',
