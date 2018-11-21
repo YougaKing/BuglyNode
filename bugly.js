@@ -1,4 +1,5 @@
 const token = '343515189';
+const appId = 'd98a6960d7';
 const host = 'bugly.qq.com';
 const baseUrl = 'https://' + host;
 
@@ -23,13 +24,12 @@ function Bugly() {
 
 module.exports = Bugly;
 
-Bugly.getIssueListForUploadTime = function (version) {
-    this.getIssueList(0, 'asc', 'uploadTime', version)
+Bugly.getIssueListForUploadTime = function (start, version) {
+    this.getIssueList(start, 'asc', 'uploadTime', version)
 };
 
-Bugly.getIssueList = function (page, sortOrder, sortField, version,) {
+Bugly.getIssueList = function (start, sortOrder, sortField, version,) {
 
-    const start = page * 50;
     const path = '/v2/issueList?';
 
     const params = 'start=' + start +
@@ -38,9 +38,9 @@ Bugly.getIssueList = function (page, sortOrder, sortField, version,) {
         '&pid=1' +
         '&platformId=1' +
         '&sortOrder=' + sortOrder +
-        '&rows=50' +
+        '&rows=10' +
         '&sortField=' + sortField +
-        '&appId=d98a6960d7' +
+        '&appId=' + appId +
         '&fsn=3c13fcc5-99ae-4050-99f2-b352b93eec34' +
         (version ? ('&version=' + version) : '')
     ;
@@ -57,15 +57,108 @@ Bugly.getIssueList = function (page, sortOrder, sortField, version,) {
                 return;
             }
             const obj = JSON.parse(response.text);
-            if (isAvailable(obj)) {
-                db.insertIssueList(obj.ret.issueList)
+            if (isIssueListAvailable(obj)) {
+
+                let issueList = obj.ret.issueList;
+                let index = start;
+
+                issueList.forEach(function (issue) {
+                    issue._id = issue.issueId;
+                    index++;
+                    issue.index = index;
+                    this.getCrashList(issue, version)
+                });
+
+                db.insertIssueList(issueList)
             } else {
                 console.error(obj)
             }
         });
 };
 
-function isAvailable(obj) {
-    console.log(obj.status + "\n" + obj.ret + "\n" + obj.ret.issueList);
-    return (obj.status === 200) && typeof(obj.ret) !== 'undefined' && typeof(obj.ret.issueList) !== 'undefined';
+Bugly.getCrashList = function (issue, version) {
+
+    const path = '/v2/crashList?';
+
+    const params = 'start=' + start +
+        '&searchType=detail' +
+        '&exceptionTypeList=Crash,Native,ExtensionCrash' +
+        '&pid=1' +
+        '&platformId=1' +
+        '&issueId=' + issue.issueId +
+        '&rows=10' +
+        '&appId=' + appId +
+        '&fsn=3c13fcc5-99ae-4050-99f2-b352b93eec34' +
+        (version ? ('&version=' + version) : '')
+    ;
+
+    const url = baseUrl + path + params;
+
+    console.log(url);
+
+    request.get(url)
+        .set(headers)
+        .end(function (err, response) {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            const obj = JSON.parse(response.text);
+            if (isCrashListAvailable(obj)) {
+
+                let crashDatas = obj.ret.crashDatas;
+
+                crashDatas.forEach(function (crashData) {
+                    this.getCrashDoc(crashData)
+                });
+
+                db.insertCrashList(crashDatas)
+            } else {
+                console.error(obj)
+            }
+        });
+};
+
+Bugly.getCrashDoc = function (crashData) {
+
+    const path = '/v2/crashDoc/appId/' + appId + '/platformId/1/crashHash/' + crashData.id + '?';
+
+    const params = 'start=' + start +
+        '&searchType=detail' +
+        '&exceptionTypeList=Crash,Native,ExtensionCrash' +
+        '&pid=1' +
+        '&platformId=1' +
+        '&issueId=' + issue.issueId +
+        '&rows=10' +
+        '&appId=' + appId +
+        'fsn=3c13fcc5-99ae-4050-99f2-b352b93eec34'
+    ;
+
+    const url = baseUrl + path + params;
+
+    console.log(url);
+
+    request.get(url)
+        .set(headers)
+        .end(function (err, response) {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            const obj = JSON.parse(response.text);
+            if (isCrashListAvailable(obj)) {
+
+
+            } else {
+                console.error(obj)
+            }
+        });
+};
+
+function isIssueListAvailable(obj) {
+    return (obj.status === 200) && typeof(obj.ret) !== 'undefined' && typeof(obj.ret.issueList) !== 'undefined' && obj.ret.issueList.length > 0;
+}
+
+function isCrashListAvailable(obj) {
+    return (obj.status === 200) && typeof(obj.ret) !== 'undefined' && typeof(obj.ret.crashDatas) !== 'undefined' && obj.ret.crashDatas.length > 0;
 }

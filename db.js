@@ -1,5 +1,6 @@
 const mongodb = require("mongodb");
-
+const issueList = 'issueList';
+const crashMap = 'crashMap';
 
 //MongoDB connection URL - mongodb://host:port/dbName
 const dbHost = "mongodb://localhost:27017/";
@@ -32,23 +33,26 @@ function DB() {
 module.exports = DB;
 
 DB.insertIssueList = function (value) {
-
-    value.forEach(function (issue) {
-        issue._id = issue.issueId;
-    });
-
-    dbo.collection('issueList').insertMany(value, function (err, res) {
+    dbo.collection(issueList).insertMany(value, function (err, res) {
         if (err) {
             console.error(err);
         }
     });
 };
 
-DB.queryIssueList = function (where, callback) {
-    dbo.collection('issueList').find(where).toArray(function (err, result) {
+DB.queryIssueList = function (where, sort, callback) {
+    dbo.collection(issueList).find(where).sort(sort).limit(1).toArray(function (err, result) {
         if (err) {
             console.error(err);
         }
         callback(result);
+    });
+};
+
+DB.insertCrashList = function (value) {
+    dbo.collection(crashMap).insertMany(value, function (err, res) {
+        if (err) {
+            console.error(err);
+        }
     });
 };
