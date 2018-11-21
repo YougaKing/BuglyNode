@@ -6,3 +6,8 @@ class IssueListFrom {
 class Ret {
     issueList;
 }
+
+class Issue {
+    _id;
+    issueId;
+}

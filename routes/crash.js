@@ -5,7 +5,8 @@ const db = require('../db.js');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    db.queryIssueList(null, function (result) {
+    let where = {"version": '7.4.0'};
+    db.queryIssueList(where, function (result) {
         if (result.length > 0) {
             res.json(result);
         } else {
