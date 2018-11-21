@@ -23,3 +23,19 @@ function DB() {
 
 module.exports = DB;
 
+DB.insertIssueList = function (value) {
+    dbo.collection('issueList').insertMany(value, function (err, res) {
+        if (err) {
+            console.error(err);
+        }
+    });
+};
+
+DB.queryIssueList = function (where, callback) {
+    dbo.collection('issueList').find(where).toArray(function (err, result) {
+        if (err) {
+            console.error(err);
+        }
+        callback(result);
+    });
+};

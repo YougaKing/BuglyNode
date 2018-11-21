@@ -26,7 +26,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', crashRouter);
+app.use('/crash', crashRouter);
 app.use('/chart', chartRouter);
 
 // catch 404 and forward to error handler

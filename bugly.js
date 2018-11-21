@@ -1,6 +1,6 @@
-const token = '1980006692';
+const token = '343515189';
 const host = 'bugly.qq.com';
-const baseUrl = 'https:' + host;
+const baseUrl = 'https://' + host;
 
 const headers = {
     'Host': host,
@@ -23,11 +23,11 @@ function Bugly() {
 
 module.exports = Bugly;
 
-Bugly.getIssueListForUploadTime = function (version, res, next) {
-    this.getIssueList(0, 'asc', 'uploadTime', version, res, next)
+Bugly.getIssueListForUploadTime = function (version) {
+    this.getIssueList(0, 'asc', 'uploadTime', version)
 };
 
-Bugly.getIssueList = function (page, sortOrder, sortField, version, res, next) {
+Bugly.getIssueList = function (page, sortOrder, sortField, version,) {
 
     const start = page * 50;
     const path = '/v2/issueList?';
@@ -47,17 +47,25 @@ Bugly.getIssueList = function (page, sortOrder, sortField, version, res, next) {
 
     const url = baseUrl + path + params;
 
+    console.log(url);
+
     request.get(url)
         .set(headers)
         .end(function (err, response) {
             if (err) {
-                return next(err);
+                console.error(err);
+                return;
             }
             const obj = JSON.parse(response.text);
-            if (obj.isAvailable) {
-
+            if (isAvailable(obj)) {
+                db.insertIssueList(obj.ret.issueList)
             } else {
-                res.send(obj);
+                console.error(obj)
             }
         });
 };
+
+function isAvailable(obj) {
+    console.log(obj.status + "\n" + obj.ret + "\n" + obj.ret.issueList);
+    return (obj.status === 200) && typeof(obj.ret) !== 'undefined' && typeof(obj.ret.issueList) !== 'undefined';
+}
