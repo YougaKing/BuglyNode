@@ -1,4 +1,5 @@
 const mongodb = require("mongodb");
+const dbName = 'buglynode';
 const issueList = 'issueList';
 const crashMap = 'crashMap';
 
@@ -16,14 +17,21 @@ mongodb.MongoClient.connect(dbHost, function (err, db) {
     } else {
         console.log("数据库已创建!");
     }
-    dbo = db.db("buglynode");
+    dbo = db.db(dbName);
 
-    // dbo.collection("issueList").drop(function (err, delOK) {  // 执行成功 delOK 返回 true，否则返回 false
+    // dbo.collection(issueList).drop(function (err, delOK) {
     //     if (err) {
     //         console.error(err);
     //         return
     //     }
-    //     if (delOK) console.log("集合已删除");
+    //     if (delOK) console.log(issueList + "集合已删除");
+    // });
+    // dbo.collection(crashMap).drop(function (err, delOK) {  // 执行成功 delOK 返回 true，否则返回 false
+    //     if (err) {
+    //         console.error(err);
+    //         return
+    //     }
+    //     if (delOK) console.log(crashMap + "集合已删除");
     // });
 });
 
@@ -49,7 +57,7 @@ DB.queryIssueList = function (where, sort, callback) {
     });
 };
 
-DB.insertCrashMap= function (value) {
+DB.insertCrashMap = function (value) {
     dbo.collection(crashMap).insertOne(value, function (err, res) {
         if (err) {
             console.error(err);
