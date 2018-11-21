@@ -1,4 +1,4 @@
-const token = '343515189';
+const token = '1821107426';
 const appId = 'd98a6960d7';
 const host = 'bugly.qq.com';
 const baseUrl = 'https://' + host;
@@ -8,12 +8,12 @@ const headers = {
     'Connection': 'keep-alive',
     'X-token': token,
     'Accept': 'application/json;charset=utf-8',
-    'x-csrf-token': 'c1TGe1plsg57LPvi_c94IYl2',
+    'x-csrf-token': 'r8i_HF8OuXNOq5LId51SlQZK',
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36',
     'Content-Type': 'application/json;charset=utf-8',
     'Accept-Encoding': 'gzip, deflate, br',
     'Accept-Language': 'zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7',
-    'Cookie': 'btcu_id=ed70f24fdc9235e8bc045c4c55a836755aea9eb6b0dc6; pgv_pvi=1553976320; RK=kbSoz2plS0; ptcz=79a4069068d1673ba15d973f7e7aca9455f95abbde9b44625167c8361d34bbc6; pgv_pvid=1021383505; tvfe_boss_uuid=a9fb74b55ead28c8; o_cookie=451477973; _ga=GA1.2.877053183.1526950312; vc=vc-e5e3e667-5be2-4463-8c1d-2bc4dc3133d7; btcu_id=fbe3a52d-887e-4f0b-87eb-8248ec69fbe2; pac_uid=1_451477973; ptui_loginuin=451477973; pt2gguin=o0451477973; luin=o0451477973; lskey=000100006ccfc114d1c01a0a84922fe0c2be44e9a1fe3ac4e267cd91169aaa4da2eec75cb58f0c898619634d; _gid=GA1.2.203917385.1542588771; NODINX_SESS=FT89aMvdk4M3TRZ0yqr7OsjOEdZsqQqsmysfXpBVSUWmNnp8Xs77LAip1eTRXydd; csrfToken=c1TGe1plsg57LPvi_c94IYl2; token-skey=bb4a0443-db9d-71db-d37b-39c2b342611c; token-lifeTime=1542801015; vc=vc-30d1d705-a76c-4b68-8e34-86ea90e4fb62; vc.sig=O1yI_FLq3vvN6Dx8vJ9r1scKalQxTBZBl-UUXFRXW1o; _gat=1; bugly_session=eyJpdiI6ImxPVitwMXpXbDhDeEd6THZOejZ4T1E9PSIsInZhbHVlIjoiOVJieDZDS2IrWHM1aWVCUmVUMzNXa3huMHRkTVE2UHo2STNWbGFlOEk3SHF3WjN4eUJ5T1hYT0pzeDRNQXhDTTJReDZFMFd2WXkyanhqRnZsUkNXOXc9PSIsIm1hYyI6ImQ3ZmFmOGEwODU4Y2M1Y2JiMzY5YTM0NDYxMmQ0MWJkOGNmYTMzMTcwYTIyMjY4NTNlNTMwNmNmMmM5NmMwNTEifQ%3D%3D'
+    'Cookie': 'pgv_pvi=1512451072; _ga=GA1.2.783254942.1539094158; btcu_id=d20fefd45e8e861c562af366cbf891b55bbcb68ff0018; ptui_loginuin=451477973; pt2gguin=o0451477973; RK=TSTgnUpUE0; ptcz=acf2c37e7aba43ff7bd996dcef1f38bb73c7cbf44e990667afcfd1258e4bd09d; vc=vc-a72c2ea9-7854-47ca-9e5d-e89b34b58630; vc.sig=B98fDS1eLwALUlSD94_exbuVtQ9zPB6HD-__Okyp3ss; tvfe_boss_uuid=1c91433946473eb6; pgv_pvid=65861837; o_cookie=451477973; token-skey=47915048-1f85-8b36-69c9-0af11072d524; token-lifeTime=1542826333; _gid=GA1.2.843645078.1542808331; _gat=1; pgv_si=s8318619648; _qpsvr_localtk=0.6773126282688078; ptisp=ctc; uin=o0451477973; skey=@RwkTDA7cj; NODINX_SESS=hzZOKZnGEpkB5rZUubHL6bL7ndan47zvBeD73780FRfRHmrMvzxrcWw0rF5-HP7l; csrfToken=r8i_HF8OuXNOq5LId51SlQZK; referrer=eyJpdiI6InRsaE1JMHdlb2dOblh3YTdYMGQyUVE9PSIsInZhbHVlIjoid1JUR3ZtcHZyclFvWG9odlp0XC93WXBZT3h2bjRcL0JJcG5LR1ZMaXpIQ0NzQWtHaVhPQVdaa1FIUGVuMlVEZGxLZ3ZLMzNodThNRG9GMDhRYytSemJFMzJsSUFQVzNnNEZiQnVDRnk2T3FpbzUzUmVqeU5oamUxMHdLRFR4bU9rdk1naktSU1RcL0JnUkRJMHlXcXFEeXY4d2ExRlhEeDlJVE5FeUlpZ2VlTjBzPSIsIm1hYyI6IjcyZDJhNTRiZTFlZDA0ZmQ0OTYwMjU4YzRkNGI2NGU5MmZmYTgxODFlYTNkMDE0ZmI0MzY5ZDg2MmIyM2EwYWMifQ%3D%3D; bugly_session=eyJpdiI6ImtTc0VsYU9lSHdzakl2Y3Bzcnl1eHc9PSIsInZhbHVlIjoiUXVHNkNacjcxeVNsZFYrT0dGdGwzS0lVNlJiaE8rWjZZQ2wyQWNpdlJzNWFtd1hycFhyNlwvSHFjekRUT0cyNkZaMDBzd1hNRmJYcXA3dnZxSXdxRTZBPT0iLCJtYWMiOiI1ZjdiZWVmZTQ3YjQ4N2UxZGQxNmM4ZjI4Yjk1YzMyYzBjODYyZjI3MTQwNDE4MDg2ODdlZTY3YTFlY2RkNTM4In0%3D'
 };
 
 const db = require('./db.js');
@@ -66,7 +66,7 @@ Bugly.getIssueList = function (start, sortOrder, sortField, version,) {
                     issue._id = issue.issueId;
                     index++;
                     issue.index = index;
-                    this.getCrashList(issue, version)
+                    Bugly.getCrashList(0, issue, version)
                 });
 
                 db.insertIssueList(issueList)
@@ -76,7 +76,7 @@ Bugly.getIssueList = function (start, sortOrder, sortField, version,) {
         });
 };
 
-Bugly.getCrashList = function (issue, version) {
+Bugly.getCrashList = function (start, issue, version) {
 
     const path = '/v2/crashList?';
 
@@ -105,14 +105,10 @@ Bugly.getCrashList = function (issue, version) {
             }
             const obj = JSON.parse(response.text);
             if (isCrashListAvailable(obj)) {
-
                 let crashDatas = obj.ret.crashDatas;
-
-                crashDatas.forEach(function (crashData) {
-                    this.getCrashDoc(crashData)
-                });
-
-                db.insertCrashList(crashDatas)
+                for (let key in crashDatas) {
+                    Bugly.getCrashDoc(crashDatas[key])
+                }
             } else {
                 console.error(obj)
             }
@@ -123,16 +119,7 @@ Bugly.getCrashDoc = function (crashData) {
 
     const path = '/v2/crashDoc/appId/' + appId + '/platformId/1/crashHash/' + crashData.id + '?';
 
-    const params = 'start=' + start +
-        '&searchType=detail' +
-        '&exceptionTypeList=Crash,Native,ExtensionCrash' +
-        '&pid=1' +
-        '&platformId=1' +
-        '&issueId=' + issue.issueId +
-        '&rows=10' +
-        '&appId=' + appId +
-        'fsn=3c13fcc5-99ae-4050-99f2-b352b93eec34'
-    ;
+    const params = 'fsn=3c13fcc5-99ae-4050-99f2-b352b93eec34';
 
     const url = baseUrl + path + params;
 
@@ -146,9 +133,10 @@ Bugly.getCrashDoc = function (crashData) {
                 return;
             }
             const obj = JSON.parse(response.text);
-            if (isCrashListAvailable(obj)) {
-
-
+            if (isCrashDocAvailable(obj)) {
+                let crashMap = obj.ret.crashMap;
+                crashMap._id = crashMap.crashId;
+                db.insertCrashMap(crashMap);
             } else {
                 console.error(obj)
             }
@@ -160,5 +148,9 @@ function isIssueListAvailable(obj) {
 }
 
 function isCrashListAvailable(obj) {
-    return (obj.status === 200) && typeof(obj.ret) !== 'undefined' && typeof(obj.ret.crashDatas) !== 'undefined' && obj.ret.crashDatas.length > 0;
+    return (obj.status === 200) && typeof(obj.ret) !== 'undefined' && typeof(obj.ret.crashDatas) !== 'undefined';
+}
+
+function isCrashDocAvailable(obj) {
+    return (obj.status === 200) && typeof(obj.ret) !== 'undefined' && typeof(obj.ret.crashMap) !== 'undefined';
 }

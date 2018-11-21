@@ -6,6 +6,7 @@ class IssueListFrom {
 class Ret {
     issueList;
     crashDatas;
+    reponseCode;
 }
 
 class Issue {
@@ -15,7 +16,13 @@ class Issue {
 }
 
 class CrashData {
+    id;
+    crashMap;
+}
+
+class CrashMap {
     _id;
     crashId;
     id;
+    crashMap;
 }

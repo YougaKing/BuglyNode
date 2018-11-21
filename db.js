@@ -49,8 +49,8 @@ DB.queryIssueList = function (where, sort, callback) {
     });
 };
 
-DB.insertCrashList = function (value) {
-    dbo.collection(crashMap).insertMany(value, function (err, res) {
+DB.insertCrashMap= function (value) {
+    dbo.collection(crashMap).insertOne(value, function (err, res) {
         if (err) {
             console.error(err);
         }
