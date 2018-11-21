@@ -1,5 +1,6 @@
 'use strict';
 
+
 let chartData;
 (function () {
     $.ajax({
