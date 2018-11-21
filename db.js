@@ -64,3 +64,12 @@ DB.insertCrashMap = function (value) {
         }
     });
 };
+
+DB.queryCrashMap = function (where, callback) {
+    dbo.collection(issueList).find(where).toArray(function (err, result) {
+        if (err) {
+            console.error(err);
+        }
+        callback(result);
+    });
+};
