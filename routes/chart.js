@@ -63,6 +63,7 @@ function drawChart(res) {
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
+    console.error('chart()');
     drawChart(res);
 });
 
