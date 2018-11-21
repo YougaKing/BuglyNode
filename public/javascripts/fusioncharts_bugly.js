@@ -22,10 +22,10 @@ let chartData;
             }];
 
             const lineChart = new FusionCharts({
-                type: 'msline',
+                type: 'mscolumn2d',
                 renderAt: 'chart-location',
-                width: '1000',
-                height: '600',
+                width: '100%',
+                height: '100%',
                 dataFormat: 'json',
                 dataSource: {
                     chart: chartProperties,

@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const file = require("../file.js");
+const bugly = require('bugly.js');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
+    bugly.getIssueListForUploadTime('7.4.0', res, next);
     res.render('users');
 });
 
