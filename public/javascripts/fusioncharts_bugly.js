@@ -1,10 +1,9 @@
 'use strict';
 
 let chartData;
-
 (function () {
     $.ajax({
-        url: 'http://localhost:3300/chart',
+        url: 'http://localhost:3000/chart',
         type: 'GET',
         success: function (data) {
             chartData = data;
