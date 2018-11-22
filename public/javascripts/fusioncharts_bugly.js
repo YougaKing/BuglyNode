@@ -12,8 +12,8 @@
             const chartProperties = {
                 'caption': data.version + '版本top20',
                 'numberprefix': '',
-                'xAxisName': 'expName',
-                'yAxisName': 'crashCount'
+                'xAxisName': '异常名称',
+                'yAxisName': '崩溃次数'
             };
 
             const categoriesArray = [{

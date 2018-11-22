@@ -28,13 +28,13 @@ function drawBugly(res) {
             let expName = '';
             item['list'].forEach(function (crash) {
                 expName = crash['expName'];
-                if (crash['appInBack']) {
+                if (crash['appInBack'].toUpperCase() === 'TRUE') {
                     backstageCount++;
                 } else {
                     receptionCount++;
                 }
             });
-            categories.push({'label': expName});
+            categories.push({'label': expName.slice(expName.lastIndexOf('.') + 1)});
             backstage.push({'value': backstageCount});
             reception.push({'value': receptionCount});
         });
