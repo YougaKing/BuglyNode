@@ -41,35 +41,51 @@ function DB() {
 module.exports = DB;
 
 DB.insertIssueList = function (value) {
-    dbo.collection(issueList).insertMany(value, function (err, res) {
-        if (err) {
-            console.error(err);
-        }
-    });
+    dbo.collection(issueList)
+        .insertMany(value, function (err, res) {
+            if (err) {
+                console.error(err);
+            }
+        });
 };
 
 DB.queryIssueList = function (where, sort, callback) {
-    dbo.collection(issueList).find(where).sort(sort).limit(1).toArray(function (err, result) {
-        if (err) {
-            console.error(err);
-        }
-        callback(result);
-    });
+    dbo.collection(issueList)
+        .find(where).sort(sort)
+        .limit(1)
+        .toArray(function (err, result) {
+            if (err) {
+                console.error(err);
+            }
+            callback(result);
+        });
 };
 
 DB.insertCrashMap = function (value) {
-    dbo.collection(crashMap).insertOne(value, function (err, res) {
-        if (err) {
-            console.error(err);
-        }
-    });
+    dbo.collection(crashMap)
+        .insertOne(value, function (err, res) {
+            if (err) {
+                console.error(err);
+            }
+        });
 };
 
 DB.queryCrashMap = function (where, callback) {
-    dbo.collection(issueList).find(where).toArray(function (err, result) {
-        if (err) {
-            console.error(err);
-        }
-        callback(result);
-    });
+    dbo.collection(crashMap)
+        .aggregate()
+        .match(where)
+        .group({
+            _id: "$issueId",//要聚合的字段 类group by
+            count: {$sum: 1},
+            list: {$push: "$$ROOT"}
+        })
+        .sort({count: -1})
+        .limit(20)
+        .toArray(function (err, result) {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            callback(result);
+        });
 };

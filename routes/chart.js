@@ -2,71 +2,59 @@ const db = require('../db.js');
 const express = require('express');
 const router = express.Router();
 
+function drawBugly(res) {
+    let version = '7.4.0';
+    let where = {"productVersion": version};
+    db.queryCrashMap(where, function (result) {
+        result.version = version;
 
-function drawChart(res) {
+        const categories = [];
+        const backstage = [];
+        const reception = [];
+        const dataSet = [
+            {
+                "seriesname": "后台",
+                "data": backstage
+            },
+            {
+                "seriesname": "前台",
+                "data": reception
+            }
+        ];
 
-    const monthArray = [];
-    const petrolPrices = [];
-    const dieselPrices = [];
-
-    let docs = [
-        {
-            'month': 1,
-            'petrol': 2345,
-            'diesel': 1232,
-        },
-        {
-            'month': 2,
-            'petrol': 223,
-            'diesel': 432,
-        },
-        {
-            'month': 3,
-            'petrol': 1231,
-            'diesel': 3423,
-        }
-    ];
-
-    for (index in docs) {
-        const doc = docs[index];
-        //category array
-        const month = doc['month'];
-        //series 1 values array
-        const petrol = doc['petrol'];
-        //series 2 values array
-        const diesel = doc['diesel'];
-        monthArray.push({"label": month});
-        petrolPrices.push({"value": petrol});
-        dieselPrices.push({"value": diesel});
-    }
-
-    const dataSet = [
-        {
-            "seriesname": "Petrol Price",
-            "data": petrolPrices
-        },
-        {
-            "seriesname": "Diesel Price",
-            "data": dieselPrices
-        }
-    ];
-
-    const response = {
-        "dataset": dataSet,
-        "categories": monthArray
-    };
-    res.json(response);
-
-    // let where = {"version": '7.4.0'};
-    // db.queryCrashMap(where, function (result) {
-    //     res.json(result);
-    // });
+        result.forEach(function (item) {
+            let backstageCount = 0;
+            let receptionCount = 0;
+            let expName = '';
+            item['list'].forEach(function (crash) {
+                expName = crash['expName'];
+                if (crash['appInBack']) {
+                    backstageCount++;
+                } else {
+                    receptionCount++;
+                }
+            });
+            categories.push({'label': expName});
+            backstage.push({'value': backstageCount});
+            reception.push({'value': receptionCount});
+        });
+        const response = {
+            'dataSet': dataSet,
+            'categories': categories,
+            'version': version,
+        };
+        res.json(response);
+    });
 }
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    console.error('chart()');
-    drawChart(res);
+    console.log('chart()');
+    try {
+        // drawDefault(res);
+        drawBugly(res);
+    } catch {
+    }
 });
 
 module.exports = router;
