@@ -1,9 +1,8 @@
 const db = require('../db.js');
 const express = require('express');
 const router = express.Router();
-const version = '7.4.0';
 
-function topChart(res) {
+function topChart(res, version) {
     let where = {"productVersion": version};
     db.queryCrashMapTop(where, function (result) {
         result.version = version;
@@ -47,7 +46,7 @@ function topChart(res) {
     });
 }
 
-function allChart(res) {
+function allChart(res, version) {
     let where = {"productVersion": version};
     db.queryCrashMapAll(where, function (result) {
         result.version = version;
@@ -87,12 +86,13 @@ router.get('/', function (req, res, next) {
     console.log(query);
 
     let type = query['type'];
+    let version = query['version'];
 
     try {
         if (type === 'top') {
-            topChart(res);
+            topChart(res, version);
         } else if (type === 'all') {
-            allChart(res);
+            allChart(res, version);
         }
     } catch (err) {
         console.log(err)

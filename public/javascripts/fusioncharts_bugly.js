@@ -1,11 +1,28 @@
 'use strict';
 
+const VERSION = '7.4.0';
+
+//获取浏览器参数
+function getUrlParams(name) {
+    return (
+        decodeURIComponent(
+            (new RegExp("[?|&]" + name + "=" + "([^&;]+?)(&|#|;|$)").exec(
+                location.href
+            ) || [, ""])[1].replace(/\+/g, "%20")
+        ) || null
+    );
+}
 
 (function () {
-    // let version = ${version};
+    let version = getUrlParams('version');
+
+    if (version == null) {
+        version = VERSION;
+    }
+    console.log(version);
 
     $.ajax({
-        url: 'http://localhost:3000/chart?type=top',
+        url: 'http://localhost:3000/chart?type=top' + '&version=' + version,
         type: 'GET',
         success: function (data) {
             const template = Handlebars.compile($("#tabular-template").html());
@@ -42,7 +59,7 @@
     });
 
     $.ajax({
-        url: 'http://localhost:3000/chart?type=all',
+        url: 'http://localhost:3000/chart?type=all' + '&version=' + version,
         type: 'GET',
         success: function (data) {
             const template = Handlebars.compile($("#tabular-template").html());
