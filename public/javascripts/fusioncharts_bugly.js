@@ -2,6 +2,8 @@
 
 
 (function () {
+    // let version = ${version};
+
     $.ajax({
         url: 'http://localhost:3000/chart?type=top',
         type: 'GET',
