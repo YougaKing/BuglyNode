@@ -3,7 +3,7 @@
 
 (function () {
     $.ajax({
-        url: 'http://localhost:3000/chart',
+        url: 'http://localhost:3000/chart?type=top',
         type: 'GET',
         success: function (data) {
             const template = Handlebars.compile($("#tabular-template").html());
@@ -12,8 +12,11 @@
             const chartProperties = {
                 'caption': data.version + '版本top20',
                 'numberprefix': '',
-                'xAxisName': '异常名称',
-                'yAxisName': '崩溃次数'
+                // 'xAxisName': '异常名称',
+                'yAxisName': '崩溃次数',
+                "numvisibleplot": "2",
+                "labeldisplay": "auto",
+                "theme": "fusion"
             };
 
             const categoriesArray = [{
@@ -22,7 +25,44 @@
 
             const lineChart = new FusionCharts({
                 type: 'mscolumn2d',
-                renderAt: 'chart-location',
+                renderAt: 'topChart-location',
+                width: '100%',
+                height: '100%',
+                dataFormat: 'json',
+                dataSource: {
+                    chart: chartProperties,
+                    categories: categoriesArray,
+                    dataset: data['dataSet']
+                }
+            });
+            lineChart.render();
+        }
+    });
+
+    $.ajax({
+        url: 'http://localhost:3000/chart?type=all',
+        type: 'GET',
+        success: function (data) {
+            const template = Handlebars.compile($("#tabular-template").html());
+            $("#table-location").html(template(data));
+
+            const chartProperties = {
+                'caption': data.version + '版本全部异常',
+                'numberprefix': '',
+                // 'xAxisName': '异常名称',
+                'yAxisName': '崩溃次数',
+                "numvisibleplot": "2",
+                "labeldisplay": "auto",
+                "theme": "fusion"
+            };
+
+            const categoriesArray = [{
+                "category": data["categories"]
+            }];
+
+            const lineChart = new FusionCharts({
+                type: 'mscolumn2d',
+                renderAt: 'allChart-location',
                 width: '100%',
                 height: '100%',
                 dataFormat: 'json',

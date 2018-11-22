@@ -1,9 +1,9 @@
 const db = require('../db.js');
 const express = require('express');
 const router = express.Router();
+const version = '7.4.0';
 
-function drawBugly(res) {
-    let version = '7.4.0';
+function topChart(res) {
     let where = {"productVersion": version};
     db.queryCrashMap(where, function (result) {
         result.version = version;
@@ -47,13 +47,26 @@ function drawBugly(res) {
     });
 }
 
+function allChart(res) {
+
+}
+
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    console.log('chart()');
+    let query = req.query;
+
+    console.log(query);
+
+    let type = query['type'];
+
     try {
-        // drawDefault(res);
-        drawBugly(res);
-    } catch {
+        if (type === 'top') {
+            topChart(res);
+        } else if (type === 'all') {
+            allChart(res);
+        }
+    } catch (err) {
+        console.log(err)
     }
 });
 
