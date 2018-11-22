@@ -5,7 +5,7 @@ const version = '7.4.0';
 
 function topChart(res) {
     let where = {"productVersion": version};
-    db.queryCrashMap(where, function (result) {
+    db.queryCrashMapTop(where, function (result) {
         result.version = version;
 
         const categories = [];
@@ -48,7 +48,36 @@ function topChart(res) {
 }
 
 function allChart(res) {
+    let where = {"productVersion": version};
+    db.queryCrashMapAll(where, function (result) {
+        result.version = version;
 
+        let backstageCount = 0;
+        let receptionCount = 0;
+        result.forEach(function (crash) {
+            if (crash['appInBack'].toUpperCase() === 'TRUE') {
+                backstageCount++;
+            } else {
+                receptionCount++;
+            }
+        });
+        console.log(backstageCount + "--" + receptionCount);
+        const data = [
+            {
+                "label": "后台",
+                "value": backstageCount
+            },
+            {
+                "label": "前台",
+                "value": receptionCount
+            }
+        ];
+        const response = {
+            'data': data,
+            'version': version,
+        };
+        res.json(response);
+    });
 }
 
 /* GET users listing. */

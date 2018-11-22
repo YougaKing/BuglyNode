@@ -70,7 +70,7 @@ DB.insertCrashMap = function (value) {
         });
 };
 
-DB.queryCrashMap = function (where, callback) {
+DB.queryCrashMapTop = function (where, callback) {
     dbo.collection(crashMap)
         .aggregate()
         .match(where)
@@ -81,6 +81,19 @@ DB.queryCrashMap = function (where, callback) {
         })
         .sort({count: -1})
         .limit(20)
+        .toArray(function (err, result) {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            callback(result);
+        });
+};
+
+DB.queryCrashMapAll = function (where, callback) {
+    dbo.collection(crashMap)
+        .aggregate()
+        .match(where)
         .toArray(function (err, result) {
             if (err) {
                 console.error(err);
