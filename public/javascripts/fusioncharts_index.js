@@ -1,10 +1,9 @@
 'use strict';
 
-const URL = 'http://localhost:3000/';
+const URL = 'http://localhost:3000';
 
 
 (function () {
-
     $.ajax({
         url: URL + '?type=versionList',
         type: 'GET',
@@ -22,3 +21,7 @@ const URL = 'http://localhost:3000/';
         }
     });
 }());
+
+function clickAction(td) {
+    window.location.href = URL + '/crash?version=' + td.innerText;
+}

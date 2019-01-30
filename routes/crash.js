@@ -5,7 +5,13 @@ const db = require('../db.js');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    getIssueListForUploadTime();
+    let query = req.query;
+    console.log(query);
+    try {
+        res.render('crash', query);
+    } catch (err) {
+        console.log(err)
+    }
 });
 
 
