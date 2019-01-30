@@ -8,9 +8,7 @@ function versionList(res) {
     db.queryVersionList(function (result) {
         res.json(result);
     });
-    bugly.getVersionList(function (result) {
-        // console.log(result['ret']['versionList'])
-    })
+    bugly.getVersionList();
 }
 
 /* GET users listing. */

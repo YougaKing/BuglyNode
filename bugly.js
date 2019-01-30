@@ -28,16 +28,13 @@ function Bugly() {
 
 module.exports = Bugly;
 
-Bugly.getVersionList = function (callback) {
+Bugly.getVersionList = function () {
     const path = '/v2/getSelector/appId/d98a6960d7/platformId/1?';
-
     const params = 'types=version,member,tag,channel' +
         '&fsn=3c13fcc5-99ae-4050-99f2-b352b93eec34'
     ;
     const url = baseUrl + path + params;
-
     console.log(url);
-
     request.get(url)
         .set(headers)
         .end(function (err, response) {
@@ -46,7 +43,6 @@ Bugly.getVersionList = function (callback) {
                 return;
             }
             const obj = JSON.parse(response.text);
-            callback(obj);
             try {
                 const versionList = obj['ret']['versionList'];
                 if (versionList.length === 0) {
@@ -60,13 +56,11 @@ Bugly.getVersionList = function (callback) {
 };
 
 Bugly.getIssueListForUploadTime = function (start, version) {
-    this.getIssueList(start, 'asc', 'uploadTime', version)
+    Bugly.getIssueList(start, 'asc', 'uploadTime', version)
 };
 
 Bugly.getIssueList = function (start, sortOrder, sortField, version,) {
-
     const path = '/v2/issueList?';
-
     const params = 'start=' + start +
         '&searchType=errorType' +
         '&exceptionTypeList=Crash,Native' +
@@ -79,11 +73,8 @@ Bugly.getIssueList = function (start, sortOrder, sortField, version,) {
         '&fsn=3c13fcc5-99ae-4050-99f2-b352b93eec34' +
         (version ? ('&version=' + version) : '')
     ;
-
     const url = baseUrl + path + params;
-
     console.log(url);
-
     request.get(url)
         .set(headers)
         .end(function (err, response) {
@@ -92,36 +83,41 @@ Bugly.getIssueList = function (start, sortOrder, sortField, version,) {
                 return;
             }
             const obj = JSON.parse(response.text);
-            if (isIssueListAvailable(obj)) {
 
-                let issueList = obj.ret.issueList;
+            try {
+                let issueList = obj['ret']['issueList'];
+                if (issueList.length === 0) {
+                    return
+                }
                 let index = start;
-
-                issueList.forEach(function (issue) {
-                    issue._id = issue.issueId;
+                if (issueList.length === 1) {
+                    const issue = issueList[0];
+                    issue._id = issue['issueId'];
                     index++;
                     issue.index = index;
-                    Bugly.getCrashList(0, issue, version)
-                });
-
+                    Bugly.getLastCrashInfo(issue['issueId'])
+                } else {
+                    issueList.forEach(function (issue) {
+                        issue._id = issue['issueId'];
+                        index++;
+                        issue.index = index;
+                        Bugly.getCrashList(0, issue, version)
+                    });
+                }
                 db.insertIssueList(issueList);
 
                 if (issueList.length === rows) {
                     let issue = issueList[issueList.length - 1];
                     Bugly.getIssueListForUploadTime(issue.index, version);
-                } else {
-                    console.log("issueList.length:" + issueList.length)
                 }
-            } else {
-                console.log(obj)
+            } catch (err) {
+                console.log(err)
             }
         });
 };
 
 Bugly.getCrashList = function (start, issue, version) {
-
     const path = '/v2/crashList?';
-
     const params = 'start=' + start +
         '&searchType=detail' +
         '&exceptionTypeList=Crash,Native,ExtensionCrash' +
@@ -133,11 +129,8 @@ Bugly.getCrashList = function (start, issue, version) {
         '&fsn=3c13fcc5-99ae-4050-99f2-b352b93eec34' +
         (version ? ('&version=' + version) : '')
     ;
-
     const url = baseUrl + path + params;
-
     console.log(url);
-
     request.get(url)
         .set(headers)
         .end(function (err, response) {
@@ -146,36 +139,30 @@ Bugly.getCrashList = function (start, issue, version) {
                 return;
             }
             const obj = JSON.parse(response.text);
-            if (isCrashListAvailable(obj)) {
+
+            try {
+                const crashDatas = obj['ret']['crashDatas'];
                 let count = 0;
                 let index = start;
-                let crashDatas = obj.ret.crashDatas;
                 for (let key in crashDatas) {
                     count++;
                     index++;
-                    Bugly.getCrashDoc(crashDatas[key])
+                    Bugly.getCrashDoc(crashDatas[key]['crashHash'])
                 }
                 if (count === rows) {
                     Bugly.getCrashList(index, issue, version);
-                } else {
-                    console.log("crashList.length:" + count)
                 }
-            } else {
-                console.log(obj)
+            } catch (err) {
+                console.log(err)
             }
         });
 };
 
-Bugly.getCrashDoc = function (crashData) {
-
-    const path = '/v2/crashDoc/appId/' + appId + '/platformId/1/crashHash/' + crashData.id + '?';
-
+Bugly.getLastCrashInfo = function (issueId) {
+    const path = '/v2/lastCrashInfo/appId/d98a6960d7/platformId/1/issues/' + issueId + '/crashDataType/undefined';
     const params = 'fsn=3c13fcc5-99ae-4050-99f2-b352b93eec34';
-
     const url = baseUrl + path + params;
-
     console.log(url);
-
     request.get(url)
         .set(headers)
         .end(function (err, response) {
@@ -184,24 +171,34 @@ Bugly.getCrashDoc = function (crashData) {
                 return;
             }
             const obj = JSON.parse(response.text);
-            if (isCrashDocAvailable(obj)) {
-                let crashMap = obj.ret.crashMap;
-                crashMap._id = crashMap.crashId;
-                db.insertCrashMap(crashMap);
-            } else {
-                console.log(obj)
+            try {
+                const crashHash = obj['data']['crashHash'];
+                Bugly.getCrashDoc(crashHash);
+            } catch (err) {
+                console.log(err)
             }
         });
 };
 
-function isIssueListAvailable(obj) {
-    return (obj.status === 200) && typeof(obj.ret) !== 'undefined' && typeof(obj.ret.issueList) !== 'undefined' && obj.ret.issueList.length > 0;
-}
-
-function isCrashListAvailable(obj) {
-    return (obj.status === 200) && typeof(obj.ret) !== 'undefined' && typeof(obj.ret.crashDatas) !== 'undefined';
-}
-
-function isCrashDocAvailable(obj) {
-    return (obj.status === 200) && typeof(obj.ret) !== 'undefined' && typeof(obj.ret.crashMap) !== 'undefined';
-}
+Bugly.getCrashDoc = function (crashHash) {
+    const path = '/v2/crashDoc/appId/' + appId + '/platformId/1/crashHash/' + crashHash + '?';
+    const params = 'fsn=3c13fcc5-99ae-4050-99f2-b352b93eec34';
+    const url = baseUrl + path + params;
+    console.log(url);
+    request.get(url)
+        .set(headers)
+        .end(function (err, response) {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            const obj = JSON.parse(response.text);
+            try {
+                const crashMap = obj['ret']['crashMap'];
+                crashMap._id = crashMap['crashId'];
+                db.insertCrashMap(crashMap);
+            } catch (err) {
+                console.log(err)
+            }
+        });
+};
