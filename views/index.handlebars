@@ -1,40 +1,21 @@
-<div id="table-location">
-
-</div>
-<br/>
-<!-- Location where the chart will be added -->
-<div id="topChart-location">
-
-</div>
-<div id="allChart-location">
+<div id="table-version">
 
 </div>
 <script src="http://code.jquery.com/jquery-2.1.4.min.js" charset="utf-8"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.0/handlebars.js"></script>
-<script src="/javascripts/fusioncharts_bugly.js" charset="utf-8"></script>
+<script src="/javascripts/fusioncharts_index.js" charset="utf-8"></script>
 <script src="/javascripts/fusioncharts.js"></script>
 <script src="/javascripts/fusioncharts.charts.js"></script>
 <script src="/javascripts/fusioncharts.theme.zune.js"></script>
 
 <script id="tabular-template" type="text/html">
-    <h2>每日瑜伽 {{version}}</h2>
+    <h2>每日瑜伽</h2>
     <table class="table table-bordered">
-        <thead>
+        \{{#each categories}}
         <tr>
-            <td>异常名称</td>
-            \{{#each categories}}
-            <td>\{{label}}</td> \{{/each}}
-        </tr>
-        </thead>
-        <tbody>
-        \{{#each dataset}}
-        <tr>
-            <td>\{{seriesname}}</td>
-            \{{#each data}}
-            <td>\{{value}}</td> \{{/each}}
+            <td>\{{label}}</td>
         </tr>
         \{{/each}}
-        </tbody>
     </table>
 </script>

@@ -2,6 +2,7 @@ const mongodb = require("mongodb");
 const dbName = 'buglynode';
 const issueList = 'issueList';
 const crashMap = 'crashMap';
+const versionList = 'versionList';
 
 //MongoDB connection URL - mongodb://host:port/dbName
 const dbHost = "mongodb://localhost:27017/";
@@ -39,6 +40,30 @@ function DB() {
 }
 
 module.exports = DB;
+
+DB.insertVersionList = function (value) {
+    dbo.collection(versionList).drop(function (err, delOK) {
+        if (err) {
+            console.error(err);
+            return
+        }
+        dbo.collection(versionList)
+            .insertMany(value, function (err, res) {
+                if (err) {
+                    console.error(err);
+                }
+            });
+    });
+};
+
+DB.queryVersionList = function (callback) {
+    dbo.collection(versionList).find({}).toArray(function (err, result) {
+        if (err) {
+            console.error(err);
+        }
+        callback(result);
+    });
+};
 
 DB.insertIssueList = function (value) {
     dbo.collection(issueList)
