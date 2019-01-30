@@ -3,9 +3,9 @@ const rows = 10;
 const host = 'bugly.qq.com';
 const baseUrl = 'https://' + host;
 
-const token = '97903863';
+const token = '573825008';
 const x_csrf_token = '1g7jQ3CU693pBkR1f74g_dvS';
-const cookie = 'btcu_id=ed70f24fdc9235e8bc045c4c55a836755aea9eb6b0dc6; pgv_pvi=1553976320; RK=kbSoz2plS0; ptcz=79a4069068d1673ba15d973f7e7aca9455f95abbde9b44625167c8361d34bbc6; pgv_pvid=1021383505; tvfe_boss_uuid=a9fb74b55ead28c8; o_cookie=451477973; _ga=GA1.2.877053183.1526950312; vc=vc-e5e3e667-5be2-4463-8c1d-2bc4dc3133d7; btcu_id=fbe3a52d-887e-4f0b-87eb-8248ec69fbe2; pac_uid=1_451477973; ptui_loginuin=451477973; _gid=GA1.2.101201627.1548723587; connect.sid=s%3AFzLHHLuONIkJKmAvpXw_iOuQ-QPIJCZi.bgpLSQH3qdiHJis1TCIqSU3D9bbuqsI9iVKXEtgeD5U; token-lifeTime=1548830787; token-skey=bf41f613-f827-4da3-a5a2-56e67b9ef5d9; pgv_si=s3206441984; _qpsvr_localtk=0.5007906764188488; ptisp=cnc; csrfToken=1g7jQ3CU693pBkR1f74g_dvS; NODINX_SESS=ed8sMQhEkFUEzaTQ_DKaqm1wfyjnOXxhFZJ8zLyqrtnWjbz-ge_NxOP1AEZ0JgmW; vc=vc-87b53b98-425c-4b13-b9b2-d5d131a43bfa; vc.sig=K_Q9V-bXYKZer89eXRqcl7c0xZJCEkhmdVrDbrXdfUw; bugly_session=eyJpdiI6IloxU3hTelo3SzZ6SkJnOWJSR3JFMEE9PSIsInZhbHVlIjoiZ2MzZU56cHpDZnJvbW1YNlVwZlpkXC9nVWU4ZjhkOWJLQkNycVArMURTYkdUeXF1MDdiVHo2d0tUc25DUnlzcUFGdlM1Q0dCY0s4WXlsS01aYlQxRDhBPT0iLCJtYWMiOiJlNGRhY2Q5Njc1ODBhYmMyZTU5MDc4N2IzMTRmMzhhZTMyNGQ4OGY0NzJiZmZiMTYwODUwYTVlYTc2YzgyNjMzIn0%3D; referrer=eyJpdiI6InJMT0VsN3loN3IwK2x3azhabXlVbmc9PSIsInZhbHVlIjoiQWh2dlhJUGRPeFY1dENoR3dTTFNHSXQxTXp4SFl5UlIyV0pOdHdweGFFbU0xclA1bjNlbkZqY3J5NEoxSUZlWlhET3VcL3ZPNitDWXordCtCSWtZU1NmMFlkc2d0TGlibzJjV0JOalFcL01kWEJQM1VwamtCY3JLYWdaNkVGdTZHMVFRU0Q3dUJmcmlBdTZRNVUrTmlcL1VsdEQycFwvS3RDSytWR0JWOWxBQXNyeWFkOUlFTnlxUThpS2g5WUVOcWl4Kzc4c2dKZEV1aFhROEdoWjM3OWtjam4razFqaFZiZlZRR1hoVGkzRGlKRldZTWUzeTh3K0RsZGZKMW5tVXdFN1BNQjlySzVDRWdlU3Z1YmNUd1RLZkpmWlExNm5nMUw0aUNqYnZpTFRXTGljUnpZTVlJakszQ2NkbXA3aHhzUlwvM3pvZkpjM1J5MlRaaFJGVlZcL1dIU3A2cGc3K2lGZGJ3b3U0cERlMFBTMkU3MUxVU0pyejQyaDVvMm15dmNqTmJ6ZzJYME1kemU5NFwvYVQ2YVwvQXQ4YXVOOGRQem9WRmZJZEJFUGY2SnVsRXI0dUFHWmM0T2cwcGhMSWpQdXJTUUxGbDIyRzc1enhDbU5nOXRGYStuMXV3Ukg2Yk5VZ2hXTUlGOUY5cTZTMTJjaVc5TXdoRk5yaGVsc3hDeWwrVlo0SzRaaVNPelRubTJLakM1eFpSNmFvNzJPK0plT25JTWZVUDQzcXhXTmZFenh2Zjd0bGpDcDJFZElyeTRXcDg2MFpKczhOTjgzRnNXVnpobDBaUXNvdnd2VkQzeUxSVTZqUGU5Q2hEOHRuN0FObytvbGFybytQbStXM1hHMmFIMU9LWXZCTjk0RDlxQU52YnVFcnZERGF1RWtIU21MWVJQVTlcL2pHVXFKV3A5QndXUm9pY21mVGZTa2hITjlWQ1BuQ0k0cUVmeWdxcExRYSt6bWVFRHBKNjFRPT0iLCJtYWMiOiJjMWMzZDQyNTk5YWE5ZDU3ZjBiNGY2NzZmYjMyNmEwYmU3YWY3YmUwYWQ1MjZiYWE4OWI5ODY4ZTc4ZDYyNzM5In0%3D';
+const cookie = 'btcu_id=ed70f24fdc9235e8bc045c4c55a836755aea9eb6b0dc6; pgv_pvi=1553976320; RK=kbSoz2plS0; ptcz=79a4069068d1673ba15d973f7e7aca9455f95abbde9b44625167c8361d34bbc6; pgv_pvid=1021383505; tvfe_boss_uuid=a9fb74b55ead28c8; o_cookie=451477973; _ga=GA1.2.877053183.1526950312; vc=vc-e5e3e667-5be2-4463-8c1d-2bc4dc3133d7; btcu_id=fbe3a52d-887e-4f0b-87eb-8248ec69fbe2; pac_uid=1_451477973; ptui_loginuin=451477973; _gid=GA1.2.101201627.1548723587; pgv_si=s3206441984; _qpsvr_localtk=0.5007906764188488; ptisp=cnc; csrfToken=1g7jQ3CU693pBkR1f74g_dvS; NODINX_SESS=ed8sMQhEkFUEzaTQ_DKaqm1wfyjnOXxhFZJ8zLyqrtnWjbz-ge_NxOP1AEZ0JgmW; pgv_info=ssid=s6975414171; token-skey=ef723a2e-1237-8dd8-5f0e-0d8dc7860614; token-lifeTime=1548849611; _gat=1; bugly_session=eyJpdiI6IkJZZHFGOXpJOFNHSVZucXZyV282YUE9PSIsInZhbHVlIjoiQ3ZadTBpalFDaHd4bWhodGRFakxlME9Od25NTFdINXFJN0c3NHlSUzRiNCt1XC9hVWhZVWRqR1VGU0N3SUI0RDFWWTh6SEVldTNucTFqQlJxNHA1RDFBPT0iLCJtYWMiOiIzMDdlMzg3MzRhMzNjNmY4NGNkMTRlZjg4YWFhZjA4ODk0ZTcyODBmZGRjYjU5ZTk1YTk5MDUyNjE4NGY3NTk5In0%3D; referrer=eyJpdiI6IlZxY2FuSGZ3eXRaTEQ2Skd1dEtwdXc9PSIsInZhbHVlIjoiZHNDYXRwOUhqZTdlZVREcG83RlprSGdRUXFLUEVsSVZoYVpUYzdKaXVsWGpsbTRpQzNiK0ZGbnlENVdWRXdsTk9aTExSWFJDTXRhb2NMcExYQmtma1NLaTRhZTlsY0hmaDlCdmxGVGgrdnQ2cGR2Nld0YVcxWlwvSmZiemxwZXVNSXNyZjREMnozUlU1RER6S2I5R2JySm1nQWZsNEdzTHlaWWMwemZQVFhWTT0iLCJtYWMiOiJkMmFhNWVkMTE4MGQwZmEyODAyMTMzZWJhZDdjYWNjNDEwNzc3YTUwOGE4NWY2ZTYwMDQyNmRkZjQ4YTQxYTA5In0%3D; vc=vc-694ec552-33fb-4ec9-9148-a5e50e109e2d; vc.sig=Yzopi112N8O2DwOJC-tRvKFXYzx7KUNjCmaDMcpecVA';
 
 const headers = {
     'Host': host,
@@ -50,7 +50,7 @@ Bugly.getVersionList = function () {
                 }
                 db.insertVersionList(versionList);
             } catch (err) {
-                console.log(err)
+                console.log(obj)
             }
         });
 };
@@ -111,7 +111,7 @@ Bugly.getIssueList = function (start, sortOrder, sortField, version,) {
                     Bugly.getIssueListForUploadTime(issue.index, version);
                 }
             } catch (err) {
-                console.log(err)
+                console.log(obj)
             }
         });
 };
@@ -153,7 +153,7 @@ Bugly.getCrashList = function (start, issue, version) {
                     Bugly.getCrashList(index, issue, version);
                 }
             } catch (err) {
-                console.log(err)
+                console.log(obj)
             }
         });
 };
@@ -175,7 +175,7 @@ Bugly.getLastCrashInfo = function (issueId) {
                 const crashHash = obj['data']['crashHash'];
                 Bugly.getCrashDoc(crashHash);
             } catch (err) {
-                console.log(err)
+                console.log(obj)
             }
         });
 };
@@ -198,7 +198,7 @@ Bugly.getCrashDoc = function (crashHash) {
                 crashMap._id = crashMap['crashId'];
                 db.insertCrashMap(crashMap);
             } catch (err) {
-                console.log(err)
+                console.log(obj)
             }
         });
 };

@@ -6,24 +6,31 @@ const db = require('../db.js');
 /* GET users listing. */
 router.get('/', function (req, res, next) {
     let query = req.query;
-    console.log(query);
+    let type = query['type'];
+    let version = query['version'];
+
     try {
-        res.render('crash', query);
+        if (type === 'issueList') {
+            issueList(res, version);
+        } else {
+            res.render('crash', query);
+        }
     } catch (err) {
         console.log(err)
     }
 });
 
 
-function getIssueListForUploadTime() {
-    let where = {"version": '7.4.0'};
+function issueList(res, version) {
+    let where = {"version": version};
     let sort = {"index": -1};
     db.queryIssueList(where, sort, function (result) {
+        res.json(result);
         if (result.length > 0) {
             let issue = result[0];
-            bugly.getIssueListForUploadTime(issue.index, '7.4.0');
+            bugly.getIssueListForUploadTime(issue.index, version);
         } else {
-            bugly.getIssueListForUploadTime(0, '7.4.0');
+            bugly.getIssueListForUploadTime(0, version);
         }
     });
 }
